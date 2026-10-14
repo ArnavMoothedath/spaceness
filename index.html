@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nebula</title>
+  <meta name="description" content="A tiny universe you can push around. Thousands of particles, real gravity, shockwaves and sound.">
+  <meta name="theme-color" content="#050b16">
+  <meta property="og:title" content="Nebula">
+  <meta property="og:description" content="A tiny universe you can push around.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="sky" aria-label="Interactive particle simulation"></canvas>
+
+  <header class="brand">
+    <h1>Nebula</h1>
+    <p>A tiny universe you can push around.</p>
+  </header>
+
+  <div class="stats" aria-hidden="true">
+    <div id="statN">0 particles</div>
+    <div id="statFps">60 fps</div>
+  </div>
+
+  <div class="hint" id="hint" role="status"></div>
+
+  <nav class="dock" id="dock" aria-label="Controls">
+    <div class="seg" role="radiogroup" aria-label="Universe mode">
+      <button class="on" data-mode="galaxy" role="radio" aria-checked="true">Galaxy</button>
+      <button data-mode="flow" role="radio" aria-checked="false">Flow</button>
+      <button data-mode="gravity" role="radio" aria-checked="false">Gravity</button>
+      <button data-mode="storm" role="radio" aria-checked="false">Storm</button>
+    </div>
+
+    <label class="ctl"><span>Particles</span>
+      <input type="range" id="count" min="1000" max="14000" step="500" value="6000">
+    </label>
+    <label class="ctl"><span>Trails</span>
+      <input type="range" id="trail" min="0" max="100" step="1" value="62">
+    </label>
+
+    <button class="btn" id="btnPalette" title="Change colors (P)"><i class="sw" id="sw"></i><span id="palName">Aurora</span></button>
+    <button class="btn" id="btnSound" aria-pressed="false" title="Toggle sound (S)">Sound off</button>
+    <button class="btn" id="btnSave" title="Download a picture">Save image</button>
+    <button class="btn" id="btnFull" title="Fullscreen (F)">Fullscreen</button>
+    <button class="btn" id="btnHide" title="Hide controls (H)">Hide</button>
+  </nav>
+
+  <button class="btn show-ui" id="btnShow">Show controls</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

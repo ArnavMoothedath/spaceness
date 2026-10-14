@@ -1,0 +1,199 @@
+:root {
+  --bg: #050b16;
+  --ink: #eef1f8;
+  --dim: rgba(238, 241, 248, 0.62);
+  --glass: rgba(14, 18, 34, 0.58);
+  --line: rgba(255, 255, 255, 0.13);
+  --accent: #6ee7d0;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#sky {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+/* ---------- top corners ---------- */
+.brand {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  left: 22px;
+  pointer-events: none;
+}
+
+.brand h1 {
+  margin: 0;
+  font-family: "Unbounded", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 3.4vw, 2rem);
+  letter-spacing: -0.03em;
+}
+
+.brand p {
+  margin: 4px 0 0;
+  color: var(--dim);
+  font-size: 0.92rem;
+}
+
+.stats {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  right: 22px;
+  text-align: right;
+  color: var(--dim);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+/* ---------- hint bubble ---------- */
+.hint {
+  position: fixed;
+  top: 84px;
+  left: 50%;
+  transform: translate(-50%, -6px);
+  max-width: calc(100vw - 32px);
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  font-size: 0.95rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.hint.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- control dock ---------- */
+.dock {
+  position: fixed;
+  left: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 14px;
+  width: max-content;
+  max-width: calc(100vw - 24px);
+  padding: 8px 12px;
+  border-radius: 22px;
+  background: var(--glass);
+  border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  transition: opacity 0.3s;
+}
+
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.seg button {
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dim);
+  background: transparent;
+  border: 0;
+  padding: 8px 14px;
+  border-radius: 11px;
+  cursor: pointer;
+}
+
+.seg button:hover { color: var(--ink); }
+.seg button.on { background: var(--ink); color: var(--bg); }
+
+.ctl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--dim);
+}
+
+.ctl input { width: 86px; accent-color: var(--accent); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.btn:hover { background: rgba(255, 255, 255, 0.09); }
+.btn[aria-pressed="true"] { border-color: var(--accent); }
+
+.sw {
+  width: 38px;
+  height: 14px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- hidden-UI mode ---------- */
+.show-ui {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  display: none;
+  background: var(--glass);
+  border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+body.ui-hidden .dock,
+body.ui-hidden .brand,
+body.ui-hidden .stats,
+body.ui-hidden .hint { opacity: 0; pointer-events: none; }
+body.ui-hidden .show-ui { display: inline-flex; }
+
+@media (max-width: 640px) {
+  .ctl input { width: 70px; }
+  .hint { top: 76px; font-size: 0.88rem; }
+  .brand p { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hint, .dock { transition: none; }
+}
